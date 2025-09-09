@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap - Make Remote Work</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__logo">
+                    <img src="/logo (1).svg" alt="snap's logo" class="logo">
+                </div>
+                
+                <nav class="nav" id="nav">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <button class="nav-link" aria-expanded="false">
+                                Features
+                                <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </button>
+                            <ul class="dropdown-list">
+                                <li class="dropdown-item">
+                                    <a href="#" class="dropdown-link" aria-label="todo-list">
+                                        <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 8L5 12L13 4" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                        Todo List
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="#" class="dropdown-link">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="2" y="3" width="12" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                            <path d="M6 1V3M10 1V3" stroke="currentColor" stroke-width="1.5"/>
+                                        </svg>
+                                        Calendar
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="#" class="dropdown-link">
+                                        <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="6.5" cy="8.5" r="6" stroke="currentColor" stroke-width="1.5"/>
+                                            <path d="M6.5 4.5V8.5L9 11" stroke="currentColor" stroke-width="1.5"/>
+                                        </svg>
+                                        Reminders
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="#" class="dropdown-link">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                            <path d="M6 6H10M6 10H10" stroke="currentColor" stroke-width="1.5"/>
+                                        </svg>
+                                        Planning
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav__item">
+                            <button class="nav-link" aria-expanded="false">
+                                Company
+                                <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </button>
+                            <ul class="dropdown-list">
+                                <li class="dropdown-item">
+                                    <a href="#" class="dropdown-link">History</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="#" class="dropdown-link">Our Team</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="#" class="dropdown-link">Blog</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#" class="nav-link">Careers</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#" class="nav-link">About</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="registration">
+                        <button class="btn btn--outline">Login</button>
+                        <button class="btn btn--outline">Register</button>
+                    </div>
+                </nav>
+
+                <button class="menu-toggle open-menu" aria-label="Open menu">
+                    <svg width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="32" height="2" fill="currentColor"/>
+                        <rect y="8" width="32" height="2" fill="currentColor"/>
+                        <rect y="16" width="32" height="2" fill="currentColor"/>
+                    </svg>
+                </button>
+                
+                <button class="menu-toggle close-menu hidden" aria-label="Close menu">
+                    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L25 25M25 1L1 25" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="overlay hidden"></div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="hero">
+                <div class="hero__content">
+                    <div class="text-content">
+                        <h1>Make remote work</h1>
+                        <p>Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.</p>
+                        <button class="btn btn--primary">Learn more</button>
+                    </div>
+                    
+                    <div class="hero__image">
+                        <picture>
+                            <source media="(min-width: 1024px)" srcset="image-hero-desktop.png">
+                            <img src="/image-hero-mobile.png" alt="Remote work illustration">
+                        </picture>
+                    </div>
+                </div>
+                
+                <div class="clients">
+                    <img src="client-databiz.svg" alt="Databiz" />
+                    <img src="client-audiophile.svg" alt="Audiophile" />
+                    <img src="client-meet.svg" alt="Meet" />
+                    <img src="client-maker.svg" alt="Maker" />
+                </div>
+            </div>
+        </div>
+    </main>
+
+   <footer>
+    <div class="footer-container">
+        <p>Challenge by <a href="https://www.crio.do/">Crio.Do</a></p>
+        <p>Coded by <a href="https://github.com/chiru4c3">chiru4c3</a></p>
+    </div>
+</footer>
+
+
+    <script src="app.js"></script>
+</body>
+</html>
