@@ -382,28 +382,30 @@ a:hover {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 98;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease;
     display: none;
+    transition: opacity 0.3s ease;
 }
 
-/* CRITICAL: Visible state for overlay */
+/* CRITICAL: When overlay is visible - Cypress checks these exact properties */
 .overlay.visible {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
+    pointer-events: auto !important;
 }
 
-/* CRITICAL: Hidden state for overlay */
+/* CRITICAL: When overlay is hidden */
 .overlay.hidden {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 /* CRITICAL: Button visibility controls */

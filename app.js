@@ -19,11 +19,14 @@ function openMobileMenu() {
     
     // CRITICAL: Show overlay with exact values Cypress expects
     if (overlay) {
-        overlay.classList.remove('hidden');
+        overlay.classList.remove('visible');
         overlay.classList.add('visible');
-        overlay.style.display = 'block';
+         overlay.style.display = 'block';
         overlay.style.opacity = '1';
         overlay.style.visibility = 'visible';
+        overlay.style.pointerEvents = 'auto';
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
     }
     
     // CRITICAL: Toggle buttons - show close, hide open
@@ -35,6 +38,7 @@ function openMobileMenu() {
     if (closeMenuBtn) {
         closeMenuBtn.classList.remove('hidden');
         closeMenuBtn.style.display = 'block';
+        closeMenuBtn.style.visibility = 'visible';
     }
     
     // Prevent body scroll
@@ -47,15 +51,13 @@ function closeMobileMenu() {
     console.log('Closing mobile menu...');
     
     // Hide navigation
-    if (nav) {
+   if (nav) {
         nav.classList.remove('visible');
-        nav.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            if (!nav.classList.contains('visible')) {
-                nav.style.display = 'none';
-            }
-        }, 250);
+        if (window.innerWidth < 768) {
+            nav.style.display = 'none';
+        }
     }
+    
     
     // CRITICAL: Hide overlay with exact values Cypress expects
     if (overlay) {
@@ -63,6 +65,7 @@ function closeMobileMenu() {
         overlay.classList.remove('visible');
         overlay.style.opacity = '0';
         overlay.style.visibility = 'hidden';
+        overlay.style.pointerEvents = 'none';
         setTimeout(() => {
             if (overlay.classList.contains('hidden')) {
                 overlay.style.display = 'none';
