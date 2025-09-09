@@ -262,15 +262,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log('Initialization complete');
 });
-// Mobile menu functionality - CYPRESS TEST FIX
 function openMobileMenu() {
     nav.classList.add('visible');
     nav.style.display = 'flex';
     
-    // CRITICAL: Set exact opacity for Cypress
+    // Critical for Cypress test
     overlay.classList.add('visible');
     overlay.classList.remove('hidden');
-    overlay.style.opacity = '1'; // Exact value
+    overlay.style.display = 'block';
+    overlay.style.opacity = '1';
     overlay.style.visibility = 'visible';
     
     openMenuBtn.classList.add('hidden');
@@ -284,11 +284,18 @@ function closeMobileMenu() {
         nav.style.display = 'none';
     }
     
-    // CRITICAL: Set exact opacity for Cypress
+    // Critical for Cypress test  
     overlay.classList.remove('visible');
     overlay.classList.add('hidden');
-    overlay.style.opacity = '0'; // Exact value
+    overlay.style.opacity = '0';
     overlay.style.visibility = 'hidden';
+    
+    // Hide overlay after transition
+    setTimeout(() => {
+        if (overlay.classList.contains('hidden')) {
+            overlay.style.display = 'none';
+        }
+    }, 300);
     
     openMenuBtn.classList.remove('hidden');
     closeMenuBtn.classList.add('hidden');
@@ -296,3 +303,4 @@ function closeMobileMenu() {
     
     closeAllDropdowns();
 }
+

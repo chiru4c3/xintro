@@ -1257,18 +1257,19 @@ select.form-control {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    opacity: 0 !important; /* Force exact value */
-    visibility: hidden;
-    transition: all var(--duration-normal) var(--ease-standard);
     z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
 }
 
 .overlay.visible {
-    opacity: 1 !important; /* Force exact value */
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .overlay.hidden {
-    opacity: 0 !important; /* Force exact value */
-    visibility: hidden;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
+
