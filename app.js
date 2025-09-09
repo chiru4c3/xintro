@@ -8,54 +8,111 @@ const body = document.body;
 
 // Mobile menu functionality - FIXED FOR CYPRESS TESTS
 function openMobileMenu() {
+    console.log('Opening mobile menu...');
+    
     // Show navigation
-    nav.classList.add('visible');
-    nav.style.display = 'flex';
+    if (nav) {
+        nav.classList.add('visible');
+        nav.style.display = 'flex';
+        nav.style.transform = 'translateX(0)';
+    }
     
-    // Show overlay - CRITICAL for Cypress
-    overlay.classList.remove('hidden');
-    overlay.classList.add('visible');
-    overlay.style.display = 'block';
-    overlay.style.opacity = '1';
-    overlay.style.visibility = 'visible';
+    // CRITICAL: Show overlay with exact values Cypress expects
+    if (overlay) {
+        overlay.classList.remove('hidden');
+        overlay.classList.add('visible');
+        overlay.style.display = 'block';
+        overlay.style.opacity = '1';
+        overlay.style.visibility = 'visible';
+    }
     
-    // Show close button - CRITICAL for Cypress  
-    openMenuBtn.classList.add('hidden');
-    openMenuBtn.style.display = 'none';
-    closeMenuBtn.classList.remove('hidden');
-    closeMenuBtn.style.display = 'block';
+    // CRITICAL: Toggle buttons - show close, hide open
+    if (openMenuBtn) {
+        openMenuBtn.classList.add('hidden');
+        openMenuBtn.style.display = 'none';
+    }
     
+    if (closeMenuBtn) {
+        closeMenuBtn.classList.remove('hidden');
+        closeMenuBtn.style.display = 'block';
+    }
+    
+    // Prevent body scroll
     body.style.overflow = 'hidden';
+    
+    console.log('Mobile menu opened');
 }
 
 function closeMobileMenu() {
+    console.log('Closing mobile menu...');
+    
     // Hide navigation
-    nav.classList.remove('visible');
-    if (window.innerWidth < 768) {
-        nav.style.display = 'none';
+    if (nav) {
+        nav.classList.remove('visible');
+        nav.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (!nav.classList.contains('visible')) {
+                nav.style.display = 'none';
+            }
+        }, 250);
     }
     
-    // Hide overlay - CRITICAL for Cypress
-    overlay.classList.add('hidden');
-    overlay.classList.remove('visible');
-    overlay.style.opacity = '0';
-    overlay.style.visibility = 'hidden';
+    // CRITICAL: Hide overlay with exact values Cypress expects
+    if (overlay) {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('visible');
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'hidden';
+        setTimeout(() => {
+            if (overlay.classList.contains('hidden')) {
+                overlay.style.display = 'none';
+            }
+        }, 300);
+    }
     
-    // After transition, hide completely
-    setTimeout(() => {
-        if (overlay.classList.contains('hidden')) {
-            overlay.style.display = 'none';
-        }
-    }, 300);
+    // CRITICAL: Toggle buttons - show open, hide close
+    if (openMenuBtn) {
+        openMenuBtn.classList.remove('hidden');
+        openMenuBtn.style.display = 'block';
+    }
     
-    // Show open button, hide close button
-    openMenuBtn.classList.remove('hidden');
-    openMenuBtn.style.display = 'block';
-    closeMenuBtn.classList.add('hidden');
-    closeMenuBtn.style.display = 'none';
+    if (closeMenuBtn) {
+        closeMenuBtn.classList.add('hidden');
+        closeMenuBtn.style.display = 'none';
+    }
     
+    // Restore body scroll
     body.style.overflow = '';
-    closeAllDropdowns();
+    
+    console.log('Mobile menu closed');
+}
+
+// Event listeners
+if (openMenuBtn) {
+    openMenuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Open menu clicked');
+        openMobileMenu();
+    });
+}
+
+if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Close menu clicked');
+        closeMobileMenu();
+    });
+}
+
+if (overlay) {
+    overlay.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Overlay clicked');
+        closeMobileMenu();
+    });
 }
 
 // Dropdown functionality
@@ -165,8 +222,9 @@ window.addEventListener('resize', () => {
 });
 
 // Initialize on page load - CRITICAL for Cypress
+// CRITICAL: Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing...');
+    console.log('Initializing mobile menu...');
     
     // Ensure overlay starts hidden
     if (overlay) {
@@ -177,44 +235,64 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.style.visibility = 'hidden';
     }
     
-    // Ensure close menu starts hidden
-    if (closeMenuBtn) {
-        closeMenuBtn.classList.add('hidden');
-        closeMenuBtn.style.display = 'none';
-    }
-    
-    // Ensure open menu is visible on mobile
-    if (openMenuBtn) {
-        openMenuBtn.classList.remove('hidden');
-        if (window.innerWidth < 768) {
+    // Ensure correct button visibility on mobile
+    if (window.innerWidth < 768) {
+        if (openMenuBtn) {
+            openMenuBtn.classList.remove('hidden');
             openMenuBtn.style.display = 'block';
-        } else {
+        }
+        
+        if (closeMenuBtn) {
+            closeMenuBtn.classList.add('hidden');
+            closeMenuBtn.style.display = 'none';
+        }
+        
+        if (nav) {
+            nav.classList.remove('visible');
+            nav.style.display = 'none';
+        }
+    } else {
+        // Desktop - hide menu buttons
+        if (openMenuBtn) {
             openMenuBtn.style.display = 'none';
         }
-    }
-    
-    // Initialize all dropdowns as closed
-    closeAllDropdowns();
-    
-    // Set initial dropdown styles
-    document.querySelectorAll('.dropdown-list').forEach(dropdown => {
-        dropdown.style.display = 'none';
-        dropdown.style.opacity = '0';
-        dropdown.style.visibility = 'hidden';
-        dropdown.style.transform = 'translateY(-10px)';
-    });
-    
-    // Ensure mobile menu is closed on page load
-    if (nav) {
-        nav.classList.remove('visible');
-        if (window.innerWidth < 768) {
-            nav.style.display = 'none';
-        } else {
+        if (closeMenuBtn) {
+            closeMenuBtn.style.display = 'none';
+        }
+        if (nav) {
             nav.style.display = 'flex';
         }
     }
     
     body.style.overflow = '';
     
-    console.log('Initialization complete');
+    console.log('Mobile menu initialized');
+});
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+        // Desktop - close mobile menu if open
+        if (nav && nav.classList.contains('visible')) {
+            closeMobileMenu();
+        }
+        // Hide menu buttons on desktop
+        if (openMenuBtn) openMenuBtn.style.display = 'none';
+        if (closeMenuBtn) closeMenuBtn.style.display = 'none';
+        // Show nav on desktop
+        if (nav) nav.style.display = 'flex';
+    } else {
+        // Mobile - show appropriate button
+        if (nav && !nav.classList.contains('visible')) {
+            if (openMenuBtn) {
+                openMenuBtn.classList.remove('hidden');
+                openMenuBtn.style.display = 'block';
+            }
+            if (closeMenuBtn) {
+                closeMenuBtn.classList.add('hidden');
+                closeMenuBtn.style.display = 'none';
+            }
+            if (nav) nav.style.display = 'none';
+        }
+    }
 });
