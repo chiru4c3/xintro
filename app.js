@@ -52,7 +52,7 @@ if (overlay) {
     overlay.addEventListener('click', closeMobileMenu);
 }
 
-// Dropdown functionality (unchanged)
+// Dropdown functionality
 function toggleDropdown(navLink) {
     const isOpen = navLink.getAttribute('aria-expanded') === 'true';
     closeAllDropdowns();
@@ -69,7 +69,7 @@ function closeAllDropdowns() {
     });
 }
 
-// Event listeners for dropdowns (unchanged)
+// Event listeners for dropdowns
 navLinks.forEach(navLink => {
     navLink.addEventListener('click', (e) => {
         e.preventDefault();
@@ -86,7 +86,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Handle resize (unchanged)
+// Handle resize
 window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) {
         closeMobileMenu();
