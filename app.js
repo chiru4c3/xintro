@@ -13,20 +13,16 @@ function openMobileMenu() {
     // Show navigation
     if (nav) {
         nav.classList.add('visible');
-        nav.style.display = 'flex';
+        nav.style.display = 'block';
         nav.style.transform = 'translateX(0)';
     }
     
     // CRITICAL: Show overlay with exact values Cypress expects
     if (overlay) {
-        overlay.classList.remove('visible');
         overlay.classList.add('visible');
          overlay.style.display = 'block';
         overlay.style.opacity = '1';
         overlay.style.visibility = 'visible';
-        overlay.style.pointerEvents = 'auto';
-        overlay.style.width = '100vw';
-        overlay.style.height = '100vh';
     }
     
     // CRITICAL: Toggle buttons - show close, hide open
@@ -65,7 +61,6 @@ function closeMobileMenu() {
         overlay.classList.remove('visible');
         overlay.style.opacity = '0';
         overlay.style.visibility = 'hidden';
-        overlay.style.pointerEvents = 'none';
         setTimeout(() => {
             if (overlay.classList.contains('hidden')) {
                 overlay.style.display = 'none';
@@ -166,15 +161,27 @@ function closeDropdown(navLink) {
 
 // Event listeners
 if (openMenuBtn) {
-    openMenuBtn.addEventListener('click', openMobileMenu);
+    openMenuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Open menu clicked');
+        openMobileMenu();
+    });
 }
 
 if (closeMenuBtn) {
-    closeMenuBtn.addEventListener('click', closeMobileMenu);
+    closeMenuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Close menu clicked');
+        closeMobileMenu();
+    });
 }
 
 if (overlay) {
-    overlay.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Overlay clicked');
+        closeMobileMenu();
+    });
 }
 
 // Dropdown toggle on click
@@ -231,8 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ensure overlay starts hidden
     if (overlay) {
-        overlay.classList.add('hidden');
-        overlay.classList.remove('visible');
         overlay.style.display = 'none';
         overlay.style.opacity = '0';
         overlay.style.visibility = 'hidden';
@@ -242,18 +247,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.innerWidth < 768) {
         if (openMenuBtn) {
             openMenuBtn.classList.remove('hidden');
-            openMenuBtn.style.display = 'block';
+            
         }
         
         if (closeMenuBtn) {
             closeMenuBtn.classList.add('hidden');
-            closeMenuBtn.style.display = 'none';
+           
         }
         
-        if (nav) {
-            nav.classList.remove('visible');
-            nav.style.display = 'none';
-        }
+       if (nav && window.innerWidth < 768) {
+        nav.classList.remove('visible');
+        nav.style.display = 'none';
+    }
     } else {
         // Desktop - hide menu buttons
         if (openMenuBtn) {

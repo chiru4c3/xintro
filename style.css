@@ -397,7 +397,7 @@ a:hover {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
-    pointer-events: auto !important;
+    
 }
 
 /* CRITICAL: When overlay is hidden */
@@ -409,11 +409,17 @@ a:hover {
 }
 
 /* CRITICAL: Button visibility controls */
-.open-menu.hidden {
-    display: none !important;
+.open-menu,
+.close-menu {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #000;
 }
 
-.close-menu.hidden {
+.hidden {
     display: none !important;
 }
 
@@ -427,13 +433,18 @@ a:hover {
 
 /* Desktop - hide menu toggles */
 @media (min-width: 768px) {
+  open-menu,
+    .close-menu {
+        display: none !important;
+    }
+}
     .menu-toggle {
         display: none !important;
     }
     
     .nav {
         display: flex !important;
-    }
+    
 }
 
 /* Main content */
@@ -595,20 +606,15 @@ footer {
 @media (max-width: 767px) {
   .nav {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 240px;
-    background: var(--color-surface);
-    border-left: 1px solid var(--color-border);
-    padding: var(--space-32) var(--space-24);
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-32);
-    transform: translateX(100%);
-    transition: transform var(--duration-normal) var(--ease-standard);
-    z-index: 100;
-    display: none;
+        top: 0;
+        right: 0;
+        width: 240px;
+        height: 100vh;
+        background: white;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 99;
+        display: none;
   }
 
   .nav.visible {
@@ -669,8 +675,8 @@ footer {
 
   .close-menu {
      position: absolute;
-        top: var(--space-24);
-        right: var(--space-24);
+        top: 20px;
+        right: 20px;
         z-index: 100;
   }
 
