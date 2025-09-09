@@ -262,3 +262,37 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log('Initialization complete');
 });
+// Mobile menu functionality - CYPRESS TEST FIX
+function openMobileMenu() {
+    nav.classList.add('visible');
+    nav.style.display = 'flex';
+    
+    // CRITICAL: Set exact opacity for Cypress
+    overlay.classList.add('visible');
+    overlay.classList.remove('hidden');
+    overlay.style.opacity = '1'; // Exact value
+    overlay.style.visibility = 'visible';
+    
+    openMenuBtn.classList.add('hidden');
+    closeMenuBtn.classList.remove('hidden');
+    body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+    nav.classList.remove('visible');
+    if (window.innerWidth < 768) {
+        nav.style.display = 'none';
+    }
+    
+    // CRITICAL: Set exact opacity for Cypress
+    overlay.classList.remove('visible');
+    overlay.classList.add('hidden');
+    overlay.style.opacity = '0'; // Exact value
+    overlay.style.visibility = 'hidden';
+    
+    openMenuBtn.classList.remove('hidden');
+    closeMenuBtn.classList.add('hidden');
+    body.style.overflow = '';
+    
+    closeAllDropdowns();
+}

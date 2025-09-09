@@ -1250,3 +1250,25 @@ select.form-control {
     color: var(--color-primary-dark);
     text-decoration: underline;
 }
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0 !important; /* Force exact value */
+    visibility: hidden;
+    transition: all var(--duration-normal) var(--ease-standard);
+    z-index: 90;
+}
+
+.overlay.visible {
+    opacity: 1 !important; /* Force exact value */
+    visibility: visible;
+}
+
+.overlay.hidden {
+    opacity: 0 !important; /* Force exact value */
+    visibility: hidden;
+}
