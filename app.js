@@ -6,15 +6,14 @@ const overlay = document.querySelector('.overlay');
 const navLinks = document.querySelectorAll('.nav-link[aria-expanded]');
 const body = document.body;
 
-// Mobile menu functionality - FIXED FOR CYPRESS TESTS
+// Mobile menu functionality
 function openMobileMenu() {
-   // Show navigation
+    // Show navigation
     nav.classList.add('visible');
     
-    // Show overlay
+    // Show overlay by removing the hidden class and adding the visible class
+    overlay.classList.remove('hidden');
     overlay.classList.add('visible');
-    overlay.style.opacity = '1';
-    overlay.style.visibility = 'visible';
 
     // Hide open button and show close button
     openMenuBtn.classList.add('hidden');
@@ -22,20 +21,15 @@ function openMobileMenu() {
 
     // Prevent body scroll
     body.style.overflow = 'hidden';
-    // Prevent body scroll
-    body.style.overflow = 'hidden';
-    
-    console.log('Mobile menu opened');
 }
 
 function closeMobileMenu() {
-      // Hide navigation
+    // Hide navigation
     nav.classList.remove('visible');
 
-    // Hide overlay
+    // Hide overlay by removing the visible class and adding the hidden class
     overlay.classList.remove('visible');
-    overlay.style.opacity = '0';
-    overlay.style.visibility = 'hidden';
+    overlay.classList.add('hidden');
 
     // Show open button and hide close button
     openMenuBtn.classList.remove('hidden');
@@ -43,11 +37,6 @@ function closeMobileMenu() {
 
     // Restore body scroll
     body.style.overflow = '';
-    
-    // Restore body scroll
-    body.style.overflow = '';
-    
-    console.log('Mobile menu closed');
 }
 
 // Event listeners
@@ -63,11 +52,10 @@ if (overlay) {
     overlay.addEventListener('click', closeMobileMenu);
 }
 
-
-// Dropdown functionality
+// Dropdown functionality (unchanged)
 function toggleDropdown(navLink) {
     const isOpen = navLink.getAttribute('aria-expanded') === 'true';
-    closeAllDropdowns(); // Close all other dropdowns
+    closeAllDropdowns();
     if (!isOpen) {
         navLink.setAttribute('aria-expanded', 'true');
         navLink.classList.add('link-open');
@@ -81,7 +69,7 @@ function closeAllDropdowns() {
     });
 }
 
-// Dropdown toggle on click
+// Event listeners for dropdowns (unchanged)
 navLinks.forEach(navLink => {
     navLink.addEventListener('click', (e) => {
         e.preventDefault();
@@ -89,6 +77,7 @@ navLinks.forEach(navLink => {
         toggleDropdown(navLink);
     });
 });
+
 document.addEventListener('click', (e) => {
     const isNavLink = e.target.closest('.nav-link[aria-expanded]');
     const isDropdown = e.target.closest('.dropdown-list');
@@ -97,27 +86,14 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Handle escape key to close menus
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        if (nav && nav.classList.contains('visible')) {
-            closeMobileMenu();
-        } else {
-            closeAllDropdowns();
-        }
-    }
-});
-
-// Handle window resize
+// Handle resize (unchanged)
 window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) {
         closeMobileMenu();
-        // Ensure buttons are hidden and nav is visible on desktop
         if (openMenuBtn) openMenuBtn.classList.add('hidden');
         if (closeMenuBtn) closeMenuBtn.classList.add('hidden');
         if (nav) nav.classList.remove('hidden');
     } else {
-        // Show open menu button on mobile
         if (openMenuBtn) openMenuBtn.classList.remove('hidden');
     }
 });
@@ -127,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.innerWidth < 768) {
         nav.classList.add('hidden');
         closeMenuBtn.classList.add('hidden');
+        openMenuBtn.classList.remove('hidden');
     } else {
         openMenuBtn.classList.add('hidden');
         closeMenuBtn.classList.add('hidden');
@@ -135,7 +112,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure overlay starts hidden
     if (overlay) {
         overlay.classList.add('hidden');
-        overlay.style.opacity = '0';
-        overlay.style.visibility = 'hidden';
     }
 });
